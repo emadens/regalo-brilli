@@ -560,7 +560,7 @@
     text-shadow: 0 1px 4px rgba(0,0,0,0.3);
   }
 
-  .card-body { padding: 16px 20px 20px; }
+  .card-body { padding: 16px 20px 20px; background: var(--bg-warm); }
   .card-tags {
     display: flex;
     flex-wrap: wrap;
@@ -594,7 +594,7 @@
     overflow: hidden;
     transition: max-height 0.5s ease, padding 0.5s ease;
     padding: 0 20px;
-    background: var(--bg-warm);
+    background: #fff;
   }
   .card-reveal.open {
     max-height: 300px;
@@ -699,10 +699,10 @@
   <!-- ========== SCREEN 0: PRE-INTRO ========== -->
   <div class="screen intro active" id="screen-pre-intro">
     <div class="intro-icon">&#9968;</div>
-    <h1>Ciao Brilli!</h1>
-    <p class="subtitle">Tra poco scoprirai il tuo regalo.</p>
-    <p>Curiosa?</p>
-    <button class="btn btn-primary btn-intro" onclick="showFakeReveal()">Clicca qui</button>
+    <h1 class="pre-intro-line" id="pre-1" style="opacity:0;transform:translateY(12px);transition:opacity 0.8s, transform 0.8s;">Ciao Brilli!</h1>
+    <p class="subtitle pre-intro-line" id="pre-2" style="opacity:0;transform:translateY(12px);transition:opacity 0.8s, transform 0.8s;">Tra poco scoprirai il tuo regalo.</p>
+    <p class="pre-intro-line" id="pre-3" style="opacity:0;transform:translateY(12px);transition:opacity 0.8s, transform 0.8s;">Curiosa?</p>
+    <button class="btn btn-primary btn-intro pre-intro-line" id="pre-btn" onclick="showFakeReveal()" style="opacity:0;transform:translateY(12px);transition:opacity 0.8s, transform 0.8s;">Clicca qui</button>
   </div>
 
   <!-- ========== SCREEN 0b: FAKE KINDER REVEAL ========== -->
@@ -1176,7 +1176,7 @@ function showMystery() {
       const el = document.getElementById(id);
       el.style.opacity = '1';
       el.style.transform = 'translateY(0)';
-    }, 1000 + i * 1800);
+    }, 600 + i * 500);
   });
 }
 
@@ -1277,12 +1277,12 @@ function showCalculating() {
     if (i < texts.length) {
       document.getElementById('calc-text').textContent = texts[i];
     }
-  }, 900);
+  }, 1800);
 
   setTimeout(() => {
     clearInterval(interval);
     calculateResults();
-  }, 3500);
+  }, 7500);
 }
 
 // ── Scoring Algorithm v2 ──
@@ -1462,7 +1462,7 @@ function buildCardHTML(dest) {
       </div>
       <p class="card-desc">${dest.desc}</p>
     </div>
-    <div class="card-reveal" style="background:#fff;">
+    <div class="card-reveal">
       <div class="real-name">${dest.realName}</div>
       ${dest.activities ? `<div class="real-activities" style="font-size:0.78rem;color:var(--text-soft);margin-top:8px;"><strong>Cosa si fa:</strong> ${dest.activities}</div>` : ''}
       ${dest.when ? `<div class="real-when" style="font-size:0.78rem;color:var(--text-soft);margin-top:4px;"><strong>Quando:</strong> ${dest.when}</div>` : ''}
@@ -1518,7 +1518,17 @@ function restartQuiz() {
 
 // ── Init ──
 document.addEventListener('DOMContentLoaded', () => {
-  requestAnimationFrame(() => document.getElementById('screen-pre-intro').classList.add('visible'));
+  requestAnimationFrame(() => {
+    document.getElementById('screen-pre-intro').classList.add('visible');
+    const preLines = ['pre-1', 'pre-2', 'pre-3', 'pre-btn'];
+    preLines.forEach((id, i) => {
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }, 600 + i * 500);
+    });
+  });
 });
 </script>
 
