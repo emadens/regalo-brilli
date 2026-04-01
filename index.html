@@ -699,8 +699,7 @@
   <!-- ========== SCREEN 0: PRE-INTRO ========== -->
   <div class="screen intro active" id="screen-pre-intro">
     <div class="intro-icon">&#9968;</div>
-    <h1>Cara Brilli,<br>tra poco scoprirai<br>il tuo regalo.</h1>
-    <p class="subtitle">Ma prima ho bisogno del tuo aiuto.</p>
+    <h1>Ciao Brilli!<br>Tra poco scoprirai<br>il tuo regalo.</h1>
     <p>Curiosa?</p>
     <button class="btn btn-primary btn-intro" onclick="showFakeReveal()">Clicca qui</button>
   </div>
@@ -713,12 +712,18 @@
       <div class="kinder-placeholder"><img src="photos/kinder-2.jpg" alt="" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'kinder-placeholder',innerHTML:'&#127851;'}))"></div>
     </div>
     <div class="fake-scherzo" id="fake-scherzo">
-      <p>Scherzo...</p>
-      <button class="btn btn-primary" onclick="startQuizFromKinder()">Clicca qui per il vero regalo</button>
+      <p>Scherzo... forse</p>
+      <button class="btn btn-primary" onclick="showMystery()">Avanti</button>
     </div>
   </div>
 
-  <!-- ========== SCREEN 1: REAL INTRO ========== -->
+  <!-- ========== SCREEN 0c: MYSTERY TEXT ========== -->
+  <div class="screen intro" id="screen-mystery">
+    <p style="font-size:1.1rem;line-height:1.7;max-width:320px;margin:0 auto;">Il regalo non &egrave; un qualcosa di fisso sta volta, pu&ograve; cambiare come le scale di Harry Potter...</p>
+    <button class="btn btn-primary btn-intro" onclick="startQuizFromMystery()" style="margin-top:32px;">Vai avanti</button>
+  </div>
+
+  <!-- ========== SCREEN 1: REAL INTRO (backup) ========== -->
   <div class="screen intro" id="screen-intro">
     <div class="intro-icon">&#9968;</div>
     <h1>Brilli,<br>ho un regalo per te.</h1>
@@ -786,7 +791,7 @@
       <h2>Solo con Nele<br>o in compagnia?</h2>
       <div class="quiz-photo-wrap" id="photo-q2"><img src="photos/quiz/q2-compagnia.jpg" alt="" onerror="this.parentElement.classList.add('hidden')"></div>
     </div>
-    <p class="question-hint">Nele non si offender&agrave; della tua scelta, anzi non ti sta nemmeno osservando</p>
+    <p class="question-hint">Nele non si offender&agrave; per la tua scelta...</p>
     <div class="options stagger" data-question="compagnia">
       <div class="option-card" data-value="solo-noi" onclick="selectOption(this)">
         <div class="option-icon">&#128149;</div>
@@ -923,16 +928,16 @@
       <div class="option-card" data-value="penultimo-giugno" onclick="selectOption(this)">
         <div class="option-icon">&#9728;</div>
         <div class="option-text">
-          <div class="label">Penultimo weekend di giugno</div>
-          <div class="desc">19 &ndash; 21 giugno, quasi estate</div>
+          <div class="label">19 &ndash; 21 giugno</div>
+          <div class="desc">Penultimo weekend di giugno, quasi estate</div>
         </div>
         <div class="option-check"></div>
       </div>
       <div class="option-card" data-value="ultimo-giugno" onclick="selectOption(this)">
         <div class="option-icon">&#127774;</div>
         <div class="option-text">
-          <div class="label">Ultimo weekend di giugno</div>
-          <div class="desc">26 &ndash; 28 giugno, giornate lunghissime</div>
+          <div class="label">26 &ndash; 28 giugno</div>
+          <div class="desc">Ultimo weekend di giugno, giornate lunghissime</div>
         </div>
         <div class="option-check"></div>
       </div>
@@ -1015,50 +1020,56 @@
 const DESTINATIONS = {
   'dolomiti-bivacco': {
     mysteryName: "L'avventura tra le stelle",
-    realName: 'Universum Dolomiti — tra tenda e bivacco',
+    realName: 'Universum Dolomiti \u2014 tra tenda e bivacco',
     emoji: '&#127776;',
-    type: 'gruppo', // esperienza guidata in gruppo
+    type: 'gruppo',
     tags: [
       { text: 'Gruppo guidato', type: 'warm' },
       { text: 'Bivacco', type: 'green' },
       { text: 'Dolomiti', type: 'green' },
-      { text: '1–3 maggio', type: 'warm' }
+      { text: '1\u20133 maggio', type: 'warm' }
     ],
-    desc: "Due giorni tra le Dolomiti dormendo sotto le stelle e in bivacco. Sentieri veri, panorami guadagnati, notti silenziose a quota alta. Un'esperienza guidata in gruppo per chi vuole sentire la montagna davvero.",
-    link: 'https://www.thesouthadventures.com/service-page/universum-dolomiti-tra-tenda-e-bivacco-3',
+    desc: "Due giorni tra le Dolomiti con un gruppo di ragazzi under 33, guidati da The South Adventures. Si cammina su sentieri veri, si dorme in tenda e bivacco a quota alta, si cucina insieme scegliendo il men\u00f9 durante una call prima della partenza. Notti silenziose, panorami guadagnati, e quella stanchezza bella che ti fa dormire ovunque.",
+    activities: "Trekking in quota tra le Dolomiti, notti in bivacco e tenda, cucina condivisa.",
+    when: '1\u20133 maggio',
+    link: null,
     photoFolder: 'photos/dolomiti-bivacco',
     photo: 'photos/dolomiti-bivacco/1.png',
     placeholderBg: 'linear-gradient(135deg, #667eaa 0%, #999db3 50%, #ccc 100%)'
   },
   'baldo-altavia': {
     mysteryName: 'Il sentiero in cresta',
-    realName: 'Universummer Monte Baldo — Alta Via',
+    realName: 'Universummer Monte Baldo \u2014 Alta Via',
     emoji: '&#9968;',
     type: 'gruppo',
     tags: [
       { text: 'Gruppo guidato', type: 'warm' },
       { text: 'Alta Via', type: 'green' },
       { text: 'Monte Baldo', type: 'green' },
-      { text: '26–28 giugno', type: 'warm' }
+      { text: '26\u201328 giugno', type: 'warm' }
     ],
-    desc: "Camminare in cresta con il Lago di Garda da un lato e le montagne dall'altro. Un'alta via guidata in gruppo tra panorami che non ti aspetti e bivacchi in quota.",
-    link: 'https://www.thesouthadventures.com/service-page/universummer-monte-baldo-alta-via-2',
+    desc: "Tre giorni a camminare in cresta sul Monte Baldo, tra Veneto e Trentino: da un lato il Lago di Garda, dall\u2019altro le montagne. 40 km totali, 2200 metri di dislivello, con una notte in tenda e una in rifugio autogestito. Il tutto guidato da The South Adventures con un gruppo di under 33. L\u2019ultimo giorno si scende fino al lago per un tuffo.",
+    activities: "Alta via in cresta con vista Garda, notte in tenda e rifugio, tuffo finale nel lago.",
+    when: '26\u201328 giugno',
+    link: null,
     photoFolder: 'photos/baldo-altavia',
     photo: 'photos/baldo-altavia/Screenshot 2026-03-25 002138.png',
     placeholderBg: 'linear-gradient(135deg, #8B9DA5 0%, #B5C4C9 50%, #D4DDE0 100%)'
   },
   'alplan': {
     mysteryName: 'Il ritorno tra le vette',
-    realName: 'Camping Al Plan — Parco Naturale Fanes-Sennes-Braies',
+    realName: 'Camping Al Plan \u2014 Parco Naturale Fanes-Sennes-Braies',
     emoji: '&#127956;',
     type: 'solo',
     tags: [
       { text: 'Solo noi', type: 'warm' },
       { text: 'Campeggio', type: 'green' },
-      { text: 'Dolomiti', type: 'green' },
-      { text: 'Fine giugno', type: 'warm' }
+      { text: 'Dolomiti UNESCO', type: 'green' },
+      { text: 'Giugno', type: 'warm' }
     ],
-    desc: "Lo stesso spirito dell'anno scorso, ma in un posto nuovo. Campeggio nelle Dolomiti, nel Parco Naturale di Fanes-Sennes-Braies. Solo noi due, sentieri, libert\u00e0, e le nostre montagne preferite.",
+    desc: "Campeggio Al Plan a San Vigilio di Marebbe, a 100 metri dall\u2019ingresso del Parco Naturale Fanes-Sennes-Braies (Patrimonio UNESCO). Solo noi due in tenda, con sentieri infiniti che partono dal campeggio \u2014 escursioni tra laghi alpini, malghe e panorami dolomitici. Yoga nella yurt, passeggiate nel bosco, o semplicemente stare fermi a guardare le montagne.",
+    activities: "Trekking nel parco UNESCO, yoga, passeggiate nei boschi.",
+    when: 'A seconda di disponibilit\u00e0 \u2014 al momento per: fine giugno',
     link: null,
     photoFolder: 'photos/alplan',
     photo: 'photos/alplan/download.jpg',
@@ -1066,16 +1077,18 @@ const DESTINATIONS = {
   },
   'miravalle': {
     mysteryName: 'Il cuore delle Dolomiti a 1400m',
-    realName: 'Camping Miravalle — Val di Fassa, 1400m',
+    realName: 'Camping Miravalle \u2014 Val di Fassa, 1400m',
     emoji: '&#127748;',
     type: 'solo',
     tags: [
       { text: 'Solo noi', type: 'warm' },
       { text: 'Campeggio', type: 'green' },
-      { text: 'Val di Fassa · 1400m', type: 'green' },
-      { text: '19–21 giugno', type: 'warm' }
+      { text: 'Val di Fassa \u00b7 1400m', type: 'green' },
+      { text: 'Giugno', type: 'warm' }
     ],
-    desc: "Un campeggio a 1400 metri nel cuore della Val di Fassa, circondati dalle torri di roccia pi\u00f9 belle delle Alpi. Solo noi due, comodi ma con il sapore vero dell'alta montagna. Sentieri ovunque, tramonti incredibili.",
+    desc: "Camping Miravalle a Campitello di Fassa, 1420 metri, tre ettari di verde tra due torrenti con vista su tutte le montagne della Val di Fassa. Atmosfera familiare, ristorante con piatti tipici e pizza, e a 10 minuti le Terme di Dolomia a Pozza. Da qui partono sentieri ovunque \u2014 verso il Sassolungo, il Sella, le torri del Catinaccio.",
+    activities: "Trekking verso Sassolungo e Catinaccio, terme a Pozza di Fassa, cene tipiche.",
+    when: 'A seconda di disponibilit\u00e0 \u2014 al momento per: 19\u201321 giugno',
     link: null,
     photoFolder: 'photos/miravalle',
     photo: 'photos/miravalle/download.jpg',
@@ -1083,7 +1096,7 @@ const DESTINATIONS = {
   },
   'lexert': {
     mysteryName: "Lo specchio d'acqua a 1600m",
-    realName: "Camping Lac Lexert — Valle d'Aosta, 1600m",
+    realName: "Camping Lac Lexert \u2014 Valle d'Aosta, 1600m",
     emoji: '&#128166;',
     type: 'solo',
     tags: [
@@ -1092,7 +1105,9 @@ const DESTINATIONS = {
       { text: '1600m', type: 'green' },
       { text: 'Giugno', type: 'warm' }
     ],
-    desc: "Campeggio a 1600 metri con vista lago in Valle d'Aosta. Il Dent d'H\u00e9rens arriva a 4000m e si specchia nell'acqua. Solo noi due, lontano da tutto, con un panorama che non ti aspetti.",
+    desc: "Camping Lac Lexert a Bionaz, in Valpelline \u2014 una delle valli laterali pi\u00f9 selvagge della Valle d\u2019Aosta. Il campeggio \u00e8 sulle sponde di un laghetto a 1600 metri, circondato da larici e abeti, con il Dent d\u2019H\u00e9rens (4000m) che si specchia nell\u2019acqua. Gestito da Patrick Favre, olimpionico di biathlon. Ristorante con cucina valdostana, bocce, e un silenzio che non ti aspetti.",
+    activities: "Trekking in Valpelline, raccolta mirtilli, cucina valdostana, relax al lago.",
+    when: 'A seconda di disponibilit\u00e0 \u2014 al momento per: giugno',
     link: null,
     photoFolder: 'photos/lexert',
     photo: 'photos/lexert/download.jpg',
@@ -1148,6 +1163,16 @@ function showFakeReveal() {
 
 function showRealIntro() {
   showScreen('screen-intro');
+}
+
+function showMystery() {
+  showScreen('screen-mystery');
+}
+
+function startQuizFromMystery() {
+  document.getElementById('progress').style.display = 'block';
+  updateProgress(1);
+  showScreen('screen-q1');
 }
 
 function startQuizFromKinder() {
@@ -1230,7 +1255,7 @@ function showCalculating() {
   showScreen('screen-calc');
 
   const texts = [
-    "Sto cercando l'avventura perfetta per noi...",
+    "Nele sta pensando al regalo migliore per Brilli...",
     'Analizzo le montagne disponibili...',
     'Calcolo il livello di wild ideale...',
     'Quasi fatto...'
@@ -1316,8 +1341,6 @@ function calculateResults() {
   }
 
   // ═══ Q4: Dormire — CONDIZIONALE su Q2 ═══
-  // Se "solo noi" + "bivacco": non premia gruppo, ma i campeggi più avventurosi
-  // Se "gruppo" + "campeggio": piccolo bonus a gruppo (hanno anche rifugio)
   if (answers.dormire === 'bivacco') {
     if (isSolo) {
       scores['alplan'] += 3;
@@ -1375,17 +1398,16 @@ function calculateResults() {
     scores['miravalle'] += 1;
   }
 
-  // Sort and get top 3
+  // Sort all destinations
   const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-  const top3 = sorted.slice(0, 3).map(([key]) => key);
-  const remaining = sorted.slice(3).map(([key]) => key);
-  window._remaining = remaining;
+  const allKeys = sorted.map(([key]) => key);
 
-  renderResults(top3);
+  renderResults(allKeys);
 }
 
 // ── Render Results ──
-function renderResults(top3) {
+function renderResults(allKeys) {
+  const top3 = allKeys;
   const container = document.getElementById('mystery-cards');
   container.innerHTML = '';
 
@@ -1397,18 +1419,17 @@ function renderResults(top3) {
   };
   document.getElementById('results-message').textContent = messages[answers.vibe] || messages['natura-comfort'];
 
-  top3.forEach((key, index) => {
-    const dest = DESTINATIONS[key];
-    const isFirst = index === 0;
+  // Show only #1 as top choice
+  const topKey = top3[0];
+  const topDest = DESTINATIONS[topKey];
+  const topCard = document.createElement('div');
+  topCard.className = 'mystery-card recommended';
+  topCard.onclick = function() { toggleReveal(this); };
+  topCard.innerHTML = buildCardHTML(topDest);
+  container.appendChild(topCard);
 
-    const card = document.createElement('div');
-    card.className = 'mystery-card' + (isFirst ? ' recommended' : '');
-    card.onclick = function() { toggleReveal(this); };
-
-    card.innerHTML = buildCardHTML(dest);
-
-    container.appendChild(card);
-  });
+  // Store ALL remaining (positions 2+) for the expand button
+  window._remaining = top3.slice(1);
 
   showScreen('screen-results');
 }
@@ -1432,8 +1453,10 @@ function buildCardHTML(dest) {
     </div>
     <div class="card-reveal">
       <div class="real-name">${dest.realName}</div>
-      <div class="real-details">
-        ${dest.link ? `<a href="${dest.link}" target="_blank" class="real-link">Vedi i dettagli dell'esperienza &rarr;</a>` : '<span style="font-size:0.82rem;color:var(--text-soft);">Ti racconto tutto io quando scegliamo.</span>'}
+      ${dest.activities ? `<div class="real-activities" style="font-size:0.82rem;color:var(--text-soft);margin-top:8px;"><strong>Cosa si fa:</strong> ${dest.activities}</div>` : ''}
+      ${dest.when ? `<div class="real-when" style="font-size:0.82rem;color:var(--text-soft);margin-top:4px;"><strong>Quando:</strong> ${dest.when}</div>` : ''}
+      <div class="real-details" style="margin-top:10px;">
+        <span style="font-size:0.82rem;color:var(--text-soft);">Ti racconto tutto io quando scegliamo.</span>
       </div>
     </div>
   `;
