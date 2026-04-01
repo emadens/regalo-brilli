@@ -1457,18 +1457,18 @@ function buildCardHTML(dest) {
       <div class="card-mystery-name">${dest.mysteryName}</div>
     </div>
     <div class="card-body">
-      <div class="card-tags">
-        ${dest.tags.map(t => `<span class="tag tag-${t.type}">${t.text}</span>`).join('')}
-      </div>
-      <p class="card-desc">${dest.desc}</p>
-    </div>
-    <div class="card-reveal">
       <div class="real-name">${dest.realName}</div>
       ${dest.activities ? `<div class="real-activities" style="font-size:0.78rem;color:var(--text-soft);margin-top:8px;"><strong>Cosa si fa:</strong> ${dest.activities}</div>` : ''}
       ${dest.when ? `<div class="real-when" style="font-size:0.78rem;color:var(--text-soft);margin-top:4px;"><strong>Quando:</strong> ${dest.when}</div>` : ''}
       <div class="real-details" style="margin-top:10px;">
         <span style="font-size:0.78rem;color:var(--text-soft);">Ti racconto tutto io quando scegliamo.</span>
       </div>
+    </div>
+    <div class="card-reveal">
+      <div class="card-tags">
+        ${dest.tags.map(t => `<span class="tag tag-${t.type}">${t.text}</span>`).join('')}
+      </div>
+      <p class="card-desc">${dest.desc}</p>
     </div>
   `;
 }
